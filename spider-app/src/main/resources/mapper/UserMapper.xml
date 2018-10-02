@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.megvii.dzh.spider.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="com.megvii.dzh.spider.domain.po.User">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="gender" jdbcType="INTEGER" property="gender" />
+    <result column="tb_age" jdbcType="DOUBLE" property="tbAge" />
+    <result column="post_count" jdbcType="INTEGER" property="postCount" />
+    <result column="follow_count" jdbcType="INTEGER" property="followCount" />
+    <result column="fans_count" jdbcType="INTEGER" property="fansCount" />
+    <result column="user_head_url" jdbcType="VARCHAR" property="userHeadUrl" />
+    <result column="user_home_url" jdbcType="VARCHAR" property="userHomeUrl" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_name, gender, tb_age, post_count, follow_count, fans_count, user_head_url, 
+    user_home_url
+  </sql>
+</mapper>

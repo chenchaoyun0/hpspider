@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.megvii.dzh.spider.mapper.PostMapper">
+  <resultMap id="BaseResultMap" type="com.megvii.dzh.spider.domain.po.Post">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="reply_num" jdbcType="INTEGER" property="replyNum" />
+    <result column="time" jdbcType="TIMESTAMP" property="time" />
+    <result column="year" jdbcType="INTEGER" property="year" />
+    <result column="month" jdbcType="INTEGER" property="month" />
+    <result column="day" jdbcType="INTEGER" property="day" />
+    <result column="hour" jdbcType="INTEGER" property="hour" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.megvii.dzh.spider.domain.po.Post">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_name, title, reply_num, time
+  </sql>
+  <sql id="Blob_Column_List">
+    content
+  </sql>
+</mapper>

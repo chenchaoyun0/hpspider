@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration
+    scan="true"
+    scanPeriod="30 seconds"
+    debug="false"
+    packagingData="true">
+
+    <!--该日志将日志级别不同的log信息保存到不同的文件中 -->
+    <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml" />
+
+    <!-- 应用名称, 注意在application.properties中定义 -->
+    <springProperty
+        scope="context"
+        name="springAppName"
+        source="spring.application.name" />
+    <!-- 单个默认最大50m -->
+    <property
+        name="logging.file.max.size"
+        value="${logging.file.max.size:-50MB}" />
+    <!-- 集合默认最大500m -->
+    <property
+        name="logging.file.total.size"
+        value="${logging.file.max.size:-500MB}" />
+    <!--保存30天 -->
+    <property
+        name="logging.file.max.history.in.days"
+        value="${logging.file.max.history.in.days:-30}" />
+    <!--log路径 -->
+    <property
+        name="logging.file.path"
+        value="${logging.file.path:-./logs}" />
+    <!--文件归档后缀 -->
+    <property
+        name="logging.file.path.suffix"
+        value="${logging.file.path.suffix:-.zip}" />
+    <!-- 控制台的日志输出样式 -->
+    <property
+        name="CONSOLE_LOG_PATTERN"
+        value="%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}" />
+    <!-- 打印日志输出样式 -->
+    <property
+        name="FILE_LOG_PATTERN"
+        value="%date{yyyy-MM-dd HH:mm:ss ZZZZ} [%level] from %logger in %thread -
+        %message%n%xException" />
+
+    <if condition='isDefined("spring.config.location")'>
+        <then>
+            <property file="${spring.config.location}" />
+        </then>
+    </if>
+    <if condition='!isDefined("spring.config.location")'>
+        <then>
+            <property resource="application.properties" />
+        </then>
+    </if>
+
+    <if condition='isDefined("logback.logfile")'>
+        <then>
+            <!--日志位置，注意必须要有该路径的访问权限 -->
+            <property
+                name="LOG_FILE"
+                value="${logback.logfile}" />
+        </then>
+        <else>
+            <!--日志位置，注意必须要有该路径的访问权限 -->
+            <property
+                name="LOG_FILE"
+                value="logs/${springAppName}" />
+        </else>
+    </if>
+
+
+    <!-- 控制台输出 -->
+    <!-- <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender"> <filter class="ch.qos.logback.classic.filter.ThresholdFilter"> <level>INFO</level> 
+        <level>DEBUG</level> </filter> <encoder> <pattern>${CONSOLE_LOG_PATTERN}</pattern> <charset>utf8</charset> </encoder> </appender> -->
+
+    <appender
+        name="ERROR"
+        class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <file>${logging.file.path}/error.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- Daily rollover with compression -->
+            <fileNamePattern>./logs/error-log-%d{yyyy-MM-dd}.%i${logging.file.path.suffix}</fileNamePattern>
+            <!-- keep 30 days worth of history -->
+            <maxHistory>${logging.file.max.history.in.days}</maxHistory>
+            <maxFileSize>${logging.file.max.size}</maxFileSize>
+            <totalSizeCap>${logging.file.total.size}</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+    <appender
+        name="WARN"
+        class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>WARN</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <file>${logging.file.path}/warn.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- Daily rollover with compression -->
+            <fileNamePattern>./logs/warn-log-%d{yyyy-MM-dd}.%i${logging.file.path.suffix}</fileNamePattern>
+            <!-- keep 30 days worth of history -->
+            <maxHistory>${logging.file.max.history.in.days}</maxHistory>
+            <maxFileSize>${logging.file.max.size}</maxFileSize>
+            <totalSizeCap>${logging.file.total.size}</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+    <appender
+        name="FILE"
+        class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${logging.file.path}/application.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- Daily rollover with compression -->
+            <fileNamePattern>./logs/application-log-%d{yyyy-MM-dd}.%i${logging.file.path.suffix}</fileNamePattern>
+            <!-- keep 30 days worth of history -->
+            <maxHistory>${logging.file.max.history.in.days}</maxHistory>
+            <maxFileSize>${logging.file.max.size}</maxFileSize>
+            <totalSizeCap>${logging.file.total.size}</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <appender
+        name="ACCESS_FILE"
+        class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${logging.file.path}/access.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- daily rollover with compression -->
+            <fileNamePattern>./logs/access-log-%d{yyyy-MM-dd}.%i${logging.file.path.suffix}</fileNamePattern>
+            <!-- keep 1 week worth of history -->
+            <maxHistory>${logging.file.max.history.in.days}</maxHistory>
+            <maxFileSize>${logging.file.max.size}</maxFileSize>
+            <totalSizeCap>${logging.file.total.size}</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%date{yyyy-MM-dd HH:mm:ss ZZZZ} %message%n</pattern>
+            <!-- this quadruples logging throughput -->
+            <immediateFlush>false</immediateFlush>
+        </encoder>
+    </appender>
+
+
+    <!-- third jar -->
+    <logger
+        name="java.sql"
+        level="INFO" />
+    <logger
+        name="org.springframework"
+        level="WARN" />
+    <logger
+        name="org.mybatis"
+        level="WARN" />
+    <logger
+        name="org.apache.ibatis"
+        level="WARN" />
+    <logger
+        name="org.apache.activemq"
+        level="WARN" />
+    <logger
+        name="redis.clients.jedis"
+        level="INFO" />
+    <logger
+        name="com.google.code.yanf4j.core"
+        level="WARN" />
+    <logger
+        name="net.rubyeye.xmemcached"
+        level="WARN" />
+    <logger
+        name="com.gargoylesoftware.htmlunit"
+        level="OFF" />
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="FILE" />
+        <appender-ref ref="WARN" />
+        <appender-ref ref="ERROR" />
+    </root>
+
+    <!-- additivity=false ensures access log records only goes to the access log -->
+    <logger
+        name="org.springframework.web"
+        level="INFO"
+        additivity="false">
+        <appender-ref ref="ACCESS_FILE" />
+    </logger>
+</configuration>
