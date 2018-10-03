@@ -15,7 +15,17 @@ public class Comment {
 
     private Date time;
 
+    private Integer year;
+
+    private Integer month;
+
+    private Integer day;
+
+    private Integer hour;
+
     private String userDevice;
-    
+
+    private Long lightCount;
+
     private String content;
 }

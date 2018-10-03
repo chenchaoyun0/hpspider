@@ -13,7 +13,6 @@ import com.megvii.dzh.spider.domain.vo.Record;
 import com.megvii.dzh.spider.service.ICommentService;
 import com.megvii.dzh.spider.service.IPostService;
 import com.megvii.dzh.spider.service.IUserService;
-import com.megvii.dzh.spider.service.IUserTbsService;
 import com.megvii.dzh.spider.service.IWordDivideService;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -42,8 +41,6 @@ public class AnalysisController {
   @Resource
   private IUserService userService;
   @Resource
-  private IUserTbsService userTbsService;
-  @Resource
   private IWordDivideService wordDivideService;
 
   @RequestMapping(value = "/")
@@ -52,7 +49,6 @@ public class AnalysisController {
     long countPost = postService.count(new Post());
     long countComment = commentService.count(new Comment());
     long countUser = userService.count(new User());
-    model.addAttribute("tbName",bootConfig.getSpiderTbName());
     model.addAttribute("countPost",countPost);
     model.addAttribute("countComment",countComment);
     model.addAttribute("countUser",countUser);
@@ -270,20 +266,6 @@ public class AnalysisController {
 
   // ------------------------------***我是分割线***--------------------------------------------//
 
-  /**
-   * 用户等级分布
-   */
-  @RequestMapping(value = "/userLevel")
-  public String userLevel() {
-    return "userLevel";
-  }
-
-  @RequestMapping(value = "/getUserLevel")
-  @ResponseBody
-  public List<NameValue> getUserLevel() {
-    List<NameValue> result = userTbsService.getUserLevel();
-    return result;
-  }
   // ------------------------------***我是分割线***--------------------------------------------//
 
   /**
@@ -317,16 +299,6 @@ public class AnalysisController {
   }
 
   // ------------------------------***我是分割线***--------------------------------------------//
-
-  /**
-   * 用户关注贴吧词云
-   */
-  @RequestMapping(value = "/getTbNameWordCloud")
-  @ResponseBody
-  public List<NameValue> getTbNameWordCloud(int limit) {
-    List<NameValue> nameValuesByYear = userTbsService.getTbNameWordCloud(limit);
-    return nameValuesByYear;
-  }
 
   @RequestMapping(value = "/userNameWordCloud")
   public String userNameWordCloud() {

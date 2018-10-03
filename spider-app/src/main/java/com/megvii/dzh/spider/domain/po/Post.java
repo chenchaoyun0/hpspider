@@ -17,8 +17,6 @@ public class Post {
 
     private Integer replyNum;
 
-    private Integer type;
-
     private Date time;
 
     private Integer year;
@@ -28,6 +26,8 @@ public class Post {
     private Integer day;
     
     private Integer hour;
-    
+
+    private Long lightTotal;
+
     private String content;
 }

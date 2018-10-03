@@ -9,7 +9,6 @@ import com.megvii.dzh.spider.domain.vo.PostYears;
 import com.megvii.dzh.spider.service.ICommentService;
 import com.megvii.dzh.spider.service.IPostService;
 import com.megvii.dzh.spider.service.IUserService;
-import com.megvii.dzh.spider.service.IUserTbsService;
 import com.megvii.dzh.spider.service.IWordDivideService;
 import io.netty.util.concurrent.DefaultThreadFactory;
 import java.util.List;
@@ -33,8 +32,6 @@ public class TestService {
   private ICommentService commentService;
   @Autowired
   private IUserService userService;
-  @Autowired
-  private IUserTbsService userTbsService;
   @Autowired
   private IWordDivideService wordDivideService;
 
@@ -80,12 +77,6 @@ public class TestService {
   }
 
   @Test
-  public void test7() {
-    List<NameValue> list = userTbsService.getUserLevel();
-    log.info("---> size {} data {}", list.size(), JSONObject.toJSONString(list));
-  }
-
-  @Test
   public void test8() {
     List<NameValue> list = postService.getPostTitlesyear("2014");
     log.info("---> size {} data {}", list.size(), JSONObject.toJSONString(list));
@@ -101,12 +92,6 @@ public class TestService {
   @Test
   public void test10() {
     List<NameValue> list = userService.getUserFansBar(10);
-    log.info("---> size {} data {}", list.size(), JSONObject.toJSONString(list));
-  }
-
-  @Test
-  public void test11() {
-    List<NameValue> list = userTbsService.getTbNameWordCloud(300);
     log.info("---> size {} data {}", list.size(), JSONObject.toJSONString(list));
   }
 

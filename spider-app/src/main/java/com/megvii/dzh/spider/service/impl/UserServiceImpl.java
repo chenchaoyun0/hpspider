@@ -32,7 +32,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
   @Override
   public List<NameValue> getUserFansBar(int limit) {
     try {
-      List<NameValue> list = userMapper.getUserFansBar(Constant.getTbName(),limit);
+      List<NameValue> list = null;
       log.info("---> size {} data {}", list.size());
       return list;
     } catch (Exception e) {

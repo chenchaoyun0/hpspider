@@ -7,12 +7,10 @@ import com.megvii.dzh.spider.common.utils.SpringUtils;
 import com.megvii.dzh.spider.domain.po.Comment;
 import com.megvii.dzh.spider.domain.po.Post;
 import com.megvii.dzh.spider.domain.po.User;
-import com.megvii.dzh.spider.domain.po.UserTbs;
 import com.megvii.dzh.spider.domain.po.WordDivide;
 import com.megvii.dzh.spider.service.ICommentService;
 import com.megvii.dzh.spider.service.IPostService;
 import com.megvii.dzh.spider.service.IUserService;
-import com.megvii.dzh.spider.service.IUserTbsService;
 import com.megvii.dzh.spider.service.IWordDivideService;
 import com.megvii.dzh.spider.webmagic.pipelines.PostDownloadPipeline;
 import com.megvii.dzh.spider.webmagic.processors.PostProcessor;
@@ -45,8 +43,6 @@ public class SpiderController {
   @Autowired
   private IUserService userService;
   @Autowired
-  private IUserTbsService userTbsService;
-  @Autowired
   private IWordDivideService wordDivideService;
 
   private Spider spider = Spider.create(new PostProcessor());
@@ -61,8 +57,7 @@ public class SpiderController {
       }
 
       long count = postService.count(new Post()) + commentService.count(new Comment()) + userService
-          .count(new User()) +
-          userTbsService.count(new UserTbs()) + wordDivideService.count(new WordDivide());
+          .count(new User()) + wordDivideService.count(new WordDivide());
 
       if (count > 0) {
         return "库中有数据,请truncate table 后在执行爬虫";
@@ -70,11 +65,8 @@ public class SpiderController {
 
       // 启动多少个线程
       int spiderThreads = bootConfig.getSpiderThreads();
-      // 贴吧名称
-      String tbName = URLEncoder.encode(Constant.getTbName(), "UTF-8");
       // 开启爬虫
-      spider.addUrl(
-          bootConfig.getSpiderHttpType() + "://tieba.baidu.com/f?kw=" + tbName + "&ie=utf-8&pn=0")//
+      spider.addUrl("https://bbs.hupu.com/bxj-1")//
           .addPipeline(SpringUtils.getBean(PostDownloadPipeline.class))//
           .thread(spiderThreads)//
           .runAsync();

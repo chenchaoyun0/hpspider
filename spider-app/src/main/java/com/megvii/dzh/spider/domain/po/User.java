@@ -1,26 +1,34 @@
 package com.megvii.dzh.spider.domain.po;
 
+import java.util.Date;
 import javax.persistence.Id;
 import lombok.Data;
 
 @Data
 public class User {
-    @Id
-    private Long id;
 
-    private String userName;
+  @Id
+  private Long id;
 
-    private Integer gender;
+  private String userName;
 
-    private Double tbAge;
+  private String province;
 
-    private Integer postCount;
+  private String city;
 
-    private Integer followCount;
+  private Integer gender;
 
-    private Integer fansCount;
+  private Integer level;
 
-    private String userHeadUrl;
+  private Date joinDate;
 
-    private String userHomeUrl;
+  private Integer followCount;
+
+  private Integer fansCount;
+
+  private String userHeadUrl;
+
+  private String userHomeUrl;
+
+  private Long viewTotal;
 }

@@ -19,11 +19,6 @@ public class BootConfig {
    */
   @Value("${spider.threads:100}")
   private int spiderThreads;
-  /**
-   * 爬取的贴吧名，没有配置则获取constant 里的名字
-   */
-  @Value("${spider.tb.name}")
-  private String spiderTbName;
 
   /**
    * 重试次数
@@ -36,12 +31,6 @@ public class BootConfig {
    */
   @Value("${site.sleep.time}")
   private String siteSleepTime;
-
-  /**
-   * 抓取间隔
-   */
-  @Value("${spider.http.type}")
-  private String spiderHttpType;
   /**
    * 抓取间隔
    */
@@ -62,9 +51,4 @@ public class BootConfig {
    */
   @Autowired
   private ThreadPool<User> threadUserDivide;
-  /**
-   *
-   */
-  @Autowired
-  private ThreadPool<Object> threadUserTbsDivide;
 }

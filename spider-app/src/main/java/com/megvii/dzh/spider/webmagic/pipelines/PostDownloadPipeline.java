@@ -4,11 +4,9 @@ import com.megvii.dzh.spider.common.config.BootConfig;
 import com.megvii.dzh.spider.domain.po.Comment;
 import com.megvii.dzh.spider.domain.po.Post;
 import com.megvii.dzh.spider.domain.po.User;
-import com.megvii.dzh.spider.domain.po.UserTbs;
 import com.megvii.dzh.spider.excute.CommentSaveExcute;
 import com.megvii.dzh.spider.excute.PostSaveExcute;
 import com.megvii.dzh.spider.excute.UserSaveExcute;
-import com.megvii.dzh.spider.excute.UserTbsSaveExcute;
 import java.util.List;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
@@ -43,14 +41,6 @@ public class PostDownloadPipeline implements Pipeline {
           bootConfig.getThreadCommentDivide().putAnRun(listComment, CommentSaveExcute.class);
         } catch (Exception e) {
           log.error("putAnRun listComment error {}", url, e);
-        }
-      } else if (entry.getKey().equals("userTbsList")) {
-        List<UserTbs> userTbsList = (List<UserTbs>) entry.getValue();
-        try {
-          // 另外线程入库
-          bootConfig.getThreadUserTbsDivide().putAnRun(userTbsList, UserTbsSaveExcute.class);
-        } catch (Exception e) {
-          log.error("putAnRun error {}", url, e);
         }
       } else if (entry.getKey().equals("user")) {
         User user = (User) entry.getValue();

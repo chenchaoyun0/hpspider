@@ -3,6 +3,8 @@ package com.megvii.dzh.spider;
 import com.megvii.dzh.spider.common.config.BootConfig;
 import com.megvii.dzh.spider.common.constant.Constant;
 import com.megvii.dzh.spider.common.utils.SpringUtils;
+import com.megvii.dzh.spider.webmagic.pipelines.PostDownloadPipeline;
+import com.megvii.dzh.spider.webmagic.processors.PostProcessor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,6 +14,7 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.event.ContextRefreshedEvent;
 import tk.mybatis.spring.annotation.MapperScan;
+import us.codecraft.webmagic.Spider;
 
 @SpringBootApplication
 @ServletComponentScan
@@ -29,10 +32,14 @@ public class SpiderApplication extends SpringBootServletInitializer implements A
     public void onApplicationEvent(ContextRefreshedEvent event) {
         log.info("--->开机服务执行的操作....");
         try {
+            // 启动多少个线程
             BootConfig bootConfig = SpringUtils.getBean(BootConfig.class);
-            Constant.setTbName(bootConfig.getSpiderTbName());
-            Constant.setSpiderHttpType(bootConfig.getSpiderHttpType());
-            log.info("---> 待爬取的贴吧名为: {}",Constant.getTbName());
+            int spiderThreads = bootConfig.getSpiderThreads();
+            // 开启爬虫
+            Spider.create(new PostProcessor()).addUrl("https://bbs.hupu.com/bxj-1")//
+                .addPipeline(SpringUtils.getBean(PostDownloadPipeline.class))//
+                .thread(spiderThreads)//
+                .runAsync();
         } catch (Exception e) {
             log.error("onApplicationEvent error", e);
         }

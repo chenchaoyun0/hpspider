@@ -5,7 +5,8 @@ import java.util.Random;
 public class UserAgentUtil {
 
     public static  final String  MY_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.81 Safari/537.36 (compatible; Baiduspider-render/2.0; +http://www.baidu.com/search/spider.html)";
-    
+    public static  final String  Mac_AGENT="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:24.0) Gecko/20100101";
+
     public static final String[] AGENTS =
             new String[] {"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.75 Safari/537.36 (compatible; Baiduspider-render/2.0; +http://www.baidu.com/search/spider.html)",
                     "Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.04 (compatible; Baiduspider-render/2.0; +http://www.baidu.com/search/spider.html)",

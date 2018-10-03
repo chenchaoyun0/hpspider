@@ -9,6 +9,8 @@ import com.megvii.dzh.spider.domain.po.Comment;
 import com.megvii.dzh.spider.domain.po.WordDivide;
 import com.megvii.dzh.spider.service.ICommentService;
 import com.megvii.dzh.spider.service.IWordDivideService;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +34,13 @@ public class CommentSaveExcute extends ExpandThread<Object> {
     try {
       List<Comment> listComment = (List<Comment>) obj;
       for (Comment comment : listComment) {
+        Date time = comment.getTime();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(time);
+        comment.setYear(cal.get(Calendar.YEAR));
+        comment.setMonth(cal.get(Calendar.MONTH)+1);
+        comment.setDay(cal.get(Calendar.DATE));
+        comment.setHour(cal.get(Calendar.HOUR_OF_DAY));
         // 另外线程入库
         commentService.insert(comment);
         // 保存分词

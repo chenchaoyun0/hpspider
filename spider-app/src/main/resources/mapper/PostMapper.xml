@@ -5,7 +5,6 @@
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="title" jdbcType="VARCHAR" property="title" />
-    <result column="type" jdbcType="INTEGER" property="type" />
     <result column="reply_num" jdbcType="INTEGER" property="replyNum" />
     <result column="time" jdbcType="TIMESTAMP" property="time" />
     <result column="year" jdbcType="INTEGER" property="year" />

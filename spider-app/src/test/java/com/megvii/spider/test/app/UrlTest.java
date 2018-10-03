@@ -1,8 +1,10 @@
 package com.megvii.spider.test.app;
 
+import com.megvii.dzh.spider.common.utils.DateConvertUtils;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.Date;
 
 public class UrlTest {
 
@@ -42,8 +44,8 @@ public class UrlTest {
 //         String utrl="//tieba.baidu.com/f?kw=%E5%A4%AA%E5%8E%9F%E5%B7%A5%E4%B8%9A%E5%AD%A6%E9%99%A2&ie=utf-8&pn=50";
 //         boolean b = utrl.matches("(.*)kw=(.*)\\&ie=utf-8&pn=\\d++");
 //         System.out.println(b);
-    String intern = url.intern();
-    System.out.println(intern);
-
+    String intern ="https://my.hupu.com/103945086148127";
+    boolean matches1 = intern.matches("https://my.hupu.com/(.*?)");
+    System.out.println(matches1);
   }
 }

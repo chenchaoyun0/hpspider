@@ -5,8 +5,7 @@
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="gender" jdbcType="INTEGER" property="gender" />
-    <result column="tb_age" jdbcType="DOUBLE" property="tbAge" />
-    <result column="post_count" jdbcType="INTEGER" property="postCount" />
+    <result column="level" jdbcType="INTEGER" property="level" />
     <result column="follow_count" jdbcType="INTEGER" property="followCount" />
     <result column="fans_count" jdbcType="INTEGER" property="fansCount" />
     <result column="user_head_url" jdbcType="VARCHAR" property="userHeadUrl" />
