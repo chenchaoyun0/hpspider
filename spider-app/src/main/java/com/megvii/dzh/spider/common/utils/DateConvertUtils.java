@@ -6,12 +6,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 /**
  * 
  * @author chenchaoyun
  * @date 2018/06/10
  */
+@Slf4j
 public class DateConvertUtils {
 
   public static final String DATE_FORMAT = "yyyy-MM-dd";
@@ -65,7 +67,7 @@ public class DateConvertUtils {
     try {
       return dateFormat.parse(date);
     } catch (ParseException e) {
-      e.printStackTrace();
+      log.error("convart date error {}", e);
     }
     return null;
   }
@@ -408,7 +410,7 @@ public class DateConvertUtils {
     try {
       date = format.parse(utcTime);
     } catch (ParseException e) {
-      e.printStackTrace();
+      log.error("convart date error {}", e);
     }
     return date;
   }

@@ -1,6 +1,5 @@
 package com.megvii.dzh.spider.webmagic.processors;
 
-import com.megvii.dzh.perfrom.concurrent.pool.ThreadPool;
 import com.megvii.dzh.spider.common.config.BootConfig;
 import com.megvii.dzh.spider.common.constant.Constant;
 import com.megvii.dzh.spider.common.utils.CookieUtils;
@@ -14,9 +13,9 @@ import com.megvii.dzh.spider.common.utils.UserAgentUtil;
 import com.megvii.dzh.spider.domain.po.Comment;
 import com.megvii.dzh.spider.domain.po.Post;
 import com.megvii.dzh.spider.domain.po.User;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -26,11 +25,10 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicLong;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.http.client.protocol.ResponseProcessCookies;
 import org.springframework.util.CollectionUtils;
 import us.codecraft.webmagic.Page;
-import us.codecraft.webmagic.ResultItems;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Spider;
 import us.codecraft.webmagic.pipeline.ConsolePipeline;
@@ -130,7 +128,7 @@ public class PostProcessor implements PageProcessor {
     log.debug("---> url {}", url);
     Html html = page.getHtml();
     try {
-      if (logLoop++ % 30 == 0) {
+      if (logLoop++ % 30 == 0&&logLoop>1) {
         log.info("---> 当前线程【{}】，爬取URL【{}】", Thread.currentThread().getName(), url);
         log.info("---> 当前爬取论坛第【{}】页，已爬取帖子【{}】条，帖子回复【{}】，用户主页【{}】", (pageNo), totalPost.get(), totalComment.get(), totalUser.get());
         int sizePostQueue = bootConfig.getThreadPoolPost().arrayBlockingQueue.size();
@@ -145,7 +143,7 @@ public class PostProcessor implements PageProcessor {
       if (url.matches(TB_HOME)) {
         //将所有帖子页面加入队列
         //SpiderFileUtils.writeString2local(html.toString(), "E://hp-spider//postlist.html");
-        log.info("--> 当前爬取主页URL {}", url);
+        //log.info("--> 当前爬取主页URL {}", url);
         List<String> listPosts = html.links().regex(POST_URL).all();
         listPosts.forEach(e -> URLGeneratedUtil.generatePostURL(e));
         page.addTargetRequests(listPosts);
@@ -158,7 +156,7 @@ public class PostProcessor implements PageProcessor {
        * 匹配帖子详情页url
        */
       if (page.getUrl().regex(POST_DETAIL).match()) {
-        log.info("--> 当前爬取匹配帖子详情页url {}", url);
+        //log.info("--> 当前爬取匹配帖子详情页url {}", url);
         //SpiderFileUtils.writeString2local(html.toString(), "E://hp-spider//postDetail.html");
         List<String> all = page.getHtml().links().regex(USER_HOME).all();
         page.addTargetRequests(all);// 用户主页
@@ -169,7 +167,7 @@ public class PostProcessor implements PageProcessor {
        */
       if (page.getUrl().regex(POST_DETAIL_AFTER).match()) {
         //SpiderFileUtils.writeString2local(html.toString(), "E://hp-spider//postDetailAfter.html");
-        log.info("--> 当前爬取匹配帖子详情页 分页 即回复页URL {}", url);
+        //log.info("--> 当前爬取匹配帖子详情页 分页 即回复页URL {}", url);
         List<String> all = page.getHtml().links().regex(USER_HOME).all();
         page.addTargetRequests(all);// 用户主页
         commentData(page, html);
@@ -179,7 +177,7 @@ public class PostProcessor implements PageProcessor {
        * 用户主页url
        */
       if (page.getUrl().regex(USER_HOME).match()) {
-        log.info("--> 当前爬取用户主页url {}", url);
+        //log.info("--> 当前爬取用户主页url {}", url);
         //SpiderFileUtils.writeString2local(html.toString(), "E://hp-spider//userHome.html");
         List<String> allUserHome = html.links().regex(USER_HOME).all();
         userHomeList.addAll(allUserHome);
@@ -383,25 +381,28 @@ public class PostProcessor implements PageProcessor {
 
       String arrayValues = html.xpath("//div[@class='personalinfo']/text()").toString();
       String[] split = StringUtils.split(arrayValues, " ");
-      if (flagRenz) {
-        sheqSw = split[1];
-        levelStr = split[2];
-        onlineHours = split[3];
-        joinDateStr = split[4];
-      } else {
-        if (split.length < 4) {
-          sheqSw = split[0];
-          levelStr = split[1];
-          onlineHours = "0";
-          joinDateStr = split[2];
-        } else {
-          sheqSw = split[0];
-          levelStr = split[1];
-          onlineHours = split[2];
-          joinDateStr = split[3];
+      List<String> stringList = html.xpath("//*[@id=\"main\"]/div[1]/div[2]/div/span[@class='f666']/text()").all();
+      Map<String,String> perMap=new HashMap<>();
+      List<String> stringListNew=new ArrayList<>();
+      String[] arrays={"社区声望：","社区等级：","在线时间：","加入时间：","认证信息："};
+      for (int i=0;i<stringList.size();i++) {
+        String key = stringList.get(i);
+        if(ArrayUtils.contains(arrays,key)){
+          stringListNew.add(key);
         }
-
       }
+      for (int i=0;i<stringListNew.size();i++) {
+        String key = stringListNew.get(i);
+        if(ArrayUtils.contains(arrays,key)){
+          perMap.put(key,split[i]);
+        }
+      }
+
+      sheqSw = perMap.get("社区声望：");
+      levelStr = perMap.get("社区等级：");
+      onlineHours = perMap.get("在线时间：");
+      joinDateStr =perMap.get("加入时间：");
+
       String folStr = html.xpath("//*[@id=\"following\"]//p[@class='more']/a[1]/text()").toString();
       String fanStr = html.xpath("//*[@id=\"following\"]//p[@class='more']/a[2]/text()").toString();
 
@@ -444,7 +445,7 @@ public class PostProcessor implements PageProcessor {
     Spider.create(new PostProcessor())//
         //.addUrl("https://bbs.hupu.com/bxj-1")//
         //.addUrl("https://bbs.hupu.com/23799376.html")//
-        .addUrl("https://bbs.hupu.com/bxj-5142")//
+        .addUrl("https://my.hupu.com/85393557416635")//
         .addPipeline(new ConsolePipeline())//
         .thread(1)//
         .run();
