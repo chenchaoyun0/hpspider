@@ -28,7 +28,13 @@ public class User {
 
   private String userHeadUrl;
 
+  private String affiliation;
+
   private String userHomeUrl;
 
   private Long viewTotal;
+
+  private Long sheqSw;
+
+  private Long onlineHours;
 }

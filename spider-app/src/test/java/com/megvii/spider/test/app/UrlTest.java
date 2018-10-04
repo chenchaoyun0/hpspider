@@ -5,6 +5,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.Date;
+import org.apache.commons.lang3.StringUtils;
 
 public class UrlTest {
 
@@ -47,5 +48,6 @@ public class UrlTest {
     String intern ="https://my.hupu.com/103945086148127";
     boolean matches1 = intern.matches("https://my.hupu.com/(.*?)");
     System.out.println(matches1);
+
   }
 }

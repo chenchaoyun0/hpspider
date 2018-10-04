@@ -17,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apdplat.word.WordSegmenter;
 import org.apdplat.word.segmentation.Word;
+import org.springframework.util.ObjectUtils;
 
 @Slf4j
 public class CommentSaveExcute extends ExpandThread<Object> {
@@ -35,6 +36,9 @@ public class CommentSaveExcute extends ExpandThread<Object> {
       List<Comment> listComment = (List<Comment>) obj;
       for (Comment comment : listComment) {
         Date time = comment.getTime();
+        if(ObjectUtils.isEmpty(time)){
+          continue;
+        }
         Calendar cal = Calendar.getInstance();
         cal.setTime(time);
         comment.setYear(cal.get(Calendar.YEAR));
