@@ -118,6 +118,8 @@ public class PostProcessor implements PageProcessor {
     return site;
   }
 
+  long logLoop = 0;
+
   /**
    * 爬取处理
    */
@@ -128,12 +130,14 @@ public class PostProcessor implements PageProcessor {
     log.debug("---> url {}", url);
     Html html = page.getHtml();
     try {
-      log.info("---> 当前线程【{}】，爬取URL【{}】", Thread.currentThread().getName(), url);
-      log.info("---> 当前爬取论坛第【{}】页，已爬取帖子【{}】条，帖子回复【{}】，用户主页【{}】", (pageNo), totalPost.get(), totalComment.get(), totalUser.get());
-      int sizePostQueue = bootConfig.getThreadPoolPost().arrayBlockingQueue.size();
-      int sizeCommentQueue = bootConfig.getThreadCommentDivide().arrayBlockingQueue.size();
-      int sizeUserQueue = bootConfig.getThreadUserDivide().arrayBlockingQueue.size();
-      log.info("---> 当队列堆积 post【{}】，comment【{}】，user【{}】userHomeList 【{}】", sizePostQueue, sizeCommentQueue, sizeUserQueue, userHomeList.size());
+      if (logLoop++ % 30 == 0) {
+        log.info("---> 当前线程【{}】，爬取URL【{}】", Thread.currentThread().getName(), url);
+        log.info("---> 当前爬取论坛第【{}】页，已爬取帖子【{}】条，帖子回复【{}】，用户主页【{}】", (pageNo), totalPost.get(), totalComment.get(), totalUser.get());
+        int sizePostQueue = bootConfig.getThreadPoolPost().arrayBlockingQueue.size();
+        int sizeCommentQueue = bootConfig.getThreadCommentDivide().arrayBlockingQueue.size();
+        int sizeUserQueue = bootConfig.getThreadUserDivide().arrayBlockingQueue.size();
+        log.info("---> 当队列堆积 post【{}】，comment【{}】，user【{}】userHomeList 【{}】", sizePostQueue, sizeCommentQueue, sizeUserQueue, userHomeList.size());
+      }
 
       /**
        * 若是贴吧首页则将所有帖子加入待爬取队列
@@ -342,7 +346,7 @@ public class PostProcessor implements PageProcessor {
       }
       long viewTotal = Long.parseLong(lighStr.replaceAll("[^0-9]", ""));
       List<String> personalinfo = html.xpath("//*[@id=\"main\"]//div[@class='personalinfo']/span").all();
-      if(CollectionUtils.isEmpty(personalinfo)){
+      if (CollectionUtils.isEmpty(personalinfo)) {
         return;
       }
 
