@@ -4,7 +4,10 @@ import com.megvii.dzh.spider.common.utils.DateConvertUtils;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 
 public class UrlTest {
@@ -48,6 +51,12 @@ public class UrlTest {
     String intern ="https://my.hupu.com/103945086148127";
     boolean matches1 = intern.matches("https://my.hupu.com/(.*?)");
     System.out.println(matches1);
-
+    List<String> list=new ArrayList<>();
+    list.add("aaa");
+    list.add("aaa");
+    list.add("bbb");
+    list.add("bbb");
+    HashSet<String> set = new HashSet<>(list);
+    System.out.println(set);
   }
 }

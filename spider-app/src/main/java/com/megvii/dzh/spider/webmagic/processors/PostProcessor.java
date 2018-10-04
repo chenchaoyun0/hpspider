@@ -381,10 +381,13 @@ public class PostProcessor implements PageProcessor {
 
       String arrayValues = html.xpath("//div[@class='personalinfo']/text()").toString();
       String[] split = StringUtils.split(arrayValues, " ");
+      if(split.length>5){
+        split = ArrayUtils.subarray(split, split.length-5, split.length);
+      }
       List<String> stringList = html.xpath("//*[@id=\"main\"]/div[1]/div[2]/div/span[@class='f666']/text()").all();
       Map<String,String> perMap=new HashMap<>();
       List<String> stringListNew=new ArrayList<>();
-      String[] arrays={"社区声望：","社区等级：","在线时间：","加入时间：","认证信息："};
+      String[] arrays={"社区声望：","社区等级：","在线时间：","加入时间："};
       for (int i=0;i<stringList.size();i++) {
         String key = stringList.get(i);
         if(ArrayUtils.contains(arrays,key)){
@@ -445,7 +448,7 @@ public class PostProcessor implements PageProcessor {
     Spider.create(new PostProcessor())//
         //.addUrl("https://bbs.hupu.com/bxj-1")//
         //.addUrl("https://bbs.hupu.com/23799376.html")//
-        .addUrl("https://my.hupu.com/85393557416635")//
+        .addUrl("https://my.hupu.com/272380999276581")//
         .addPipeline(new ConsolePipeline())//
         .thread(1)//
         .run();
