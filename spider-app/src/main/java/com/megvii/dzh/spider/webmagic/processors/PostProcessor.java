@@ -306,13 +306,18 @@ public class PostProcessor implements PageProcessor {
         if (StringUtils.isBlank(device)) {
           device = html.xpath("//*[@id=\"" + idLight + "\"]/div/div[2]/table/tbody/tr/td/small/text()").toString();
         }
+        //
+        long lightLong = Long.parseLong(StringUtils.isBlank(light) ? "0" : light);
+        if(lightLong<1){
+          continue;
+        }
         //回复的数据
         Comment comment = new Comment();
         comment.setUserName(userName);
         comment.setPostUrl(url);
         comment.setTime(DateConvertUtils.parse(time, DateConvertUtils.DATE_TIME_NO_SS));
         comment.setUserDevice(StringUtils.substringAfter(device, "虎扑"));
-        comment.setLightCount(Long.parseLong(StringUtils.isBlank(light) ? "0" : light));
+        comment.setLightCount(lightLong);
         comment.setContent(SpiderStringUtils.xffReplace(content));
         listComment.add(comment);
 
@@ -452,7 +457,7 @@ public class PostProcessor implements PageProcessor {
     Spider.create(new PostProcessor())//
         //.addUrl("https://bbs.hupu.com/bxj-1")//
         //.addUrl("https://bbs.hupu.com/23799376.html")//
-        .addUrl("https://my.hupu.com/272380999276581")//
+        .addUrl("https://bbs.hupu.com/23761335.html")//
         .addPipeline(new ConsolePipeline())//
         .thread(1)//
         .run();
