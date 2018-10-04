@@ -287,6 +287,7 @@ public class PostProcessor implements PageProcessor {
       /**
        * 亮评数量
        */
+
       List<String> lightSize = html.xpath("//*[@id=\"t_main\"]/form/[@class=\"floor\"]/@id").all();
       lightSize.remove("tpc");
       for (int i = 0; i < lightSize.size(); i++) {
@@ -381,10 +382,13 @@ public class PostProcessor implements PageProcessor {
 
       String arrayValues = html.xpath("//div[@class='personalinfo']/text()").toString();
       String[] split = StringUtils.split(arrayValues, " ");
-      if(split.length>5){
-        split = ArrayUtils.subarray(split, split.length-5, split.length);
-      }
       List<String> stringList = html.xpath("//*[@id=\"main\"]/div[1]/div[2]/div/span[@class='f666']/text()").all();
+      if(split.length>5){
+          split = ArrayUtils.subarray(split, split.length-5, split.length);
+      }
+      if(!stringList.contains("上次登录：")){
+        split = ArrayUtils.subarray(split, split.length-4, split.length);
+      }
       Map<String,String> perMap=new HashMap<>();
       List<String> stringListNew=new ArrayList<>();
       String[] arrays={"社区声望：","社区等级：","在线时间：","加入时间："};
