@@ -134,7 +134,8 @@ public class PostProcessor implements PageProcessor {
         int sizePostQueue = bootConfig.getThreadPoolPost().arrayBlockingQueue.size();
         int sizeCommentQueue = bootConfig.getThreadCommentDivide().arrayBlockingQueue.size();
         int sizeUserQueue = bootConfig.getThreadUserDivide().arrayBlockingQueue.size();
-        log.info("---> 当队列堆积 post【{}】，comment【{}】，user【{}】userHomeList 【{}】", sizePostQueue, sizeCommentQueue, sizeUserQueue, userHomeList.size());
+        int sizeWordDivideQueue = bootConfig.getWordDivideSaveExcute().arrayBlockingQueue.size();
+        log.info("---> 当队列堆积 post【{}】，comment【{}】，user【{}】，wordDivide【{}】，userHomeList 【{}】", sizePostQueue, sizeCommentQueue, sizeUserQueue,sizeWordDivideQueue, userHomeList.size());
       }
 
       /**

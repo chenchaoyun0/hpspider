@@ -3,7 +3,9 @@ package com.megvii.dzh.spider.excute;
 import com.alibaba.fastjson.JSONObject;
 import com.megvii.dzh.perfrom.bean.ResultBackObject;
 import com.megvii.dzh.perfrom.component.run.RunService;
+import com.megvii.dzh.perfrom.concurrent.pool.ThreadPool;
 import com.megvii.dzh.perfrom.concurrent.thread.ExpandThread;
+import com.megvii.dzh.spider.common.config.BootConfig;
 import com.megvii.dzh.spider.common.utils.SpringUtils;
 import com.megvii.dzh.spider.domain.po.User;
 import com.megvii.dzh.spider.domain.po.WordDivide;
@@ -20,8 +22,7 @@ public class UserSaveExcute extends ExpandThread<User> {
 
   private IUserService userService = SpringUtils.getBean(IUserService.class);
 
-  private IWordDivideService wordDivideService = SpringUtils.getBean(IWordDivideService.class);
-
+  private BootConfig bootConfig = SpringUtils.getBean(BootConfig.class);
 
   public UserSaveExcute(ArrayBlockingQueue<User> arrayBlockingQueue) {
     super(arrayBlockingQueue);
@@ -45,7 +46,8 @@ public class UserSaveExcute extends ExpandThread<User> {
         wordDivide.setWord(text);
         wordDivide.setType(1);
         //
-        wordDivideService.insert(wordDivide);
+        bootConfig.getWordDivideSaveExcute().putAnRun(wordDivide,WordDivideSaveExcute.class);
+
       }
     } catch (Exception e) {
       log.error("perform error User {}", JSONObject.toJSONString(user), e);

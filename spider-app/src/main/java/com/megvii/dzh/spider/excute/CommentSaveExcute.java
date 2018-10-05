@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.megvii.dzh.perfrom.bean.ResultBackObject;
 import com.megvii.dzh.perfrom.component.run.RunService;
 import com.megvii.dzh.perfrom.concurrent.thread.ExpandThread;
+import com.megvii.dzh.spider.common.config.BootConfig;
 import com.megvii.dzh.spider.common.utils.SpringUtils;
 import com.megvii.dzh.spider.domain.po.Comment;
 import com.megvii.dzh.spider.domain.po.WordDivide;
@@ -24,7 +25,8 @@ public class CommentSaveExcute extends ExpandThread<Object> {
 
   private ICommentService commentService = SpringUtils.getBean(ICommentService.class);
 
-  private IWordDivideService wordDivideService = SpringUtils.getBean(IWordDivideService.class);
+  private BootConfig bootConfig = SpringUtils.getBean(BootConfig.class);
+
 
   public CommentSaveExcute(ArrayBlockingQueue<Object> arrayBlockingQueue) {
     super(arrayBlockingQueue);
@@ -61,7 +63,7 @@ public class CommentSaveExcute extends ExpandThread<Object> {
           WordDivide wordDivide = new WordDivide();
           wordDivide.setWord(word.getText());
           wordDivide.setType(3);
-          wordDivideService.insert(wordDivide);
+          bootConfig.getWordDivideSaveExcute().putAnRun(wordDivide,WordDivideSaveExcute.class);
         }
       }
 

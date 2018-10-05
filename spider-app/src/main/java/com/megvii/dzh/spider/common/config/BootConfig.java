@@ -3,6 +3,7 @@ package com.megvii.dzh.spider.common.config;
 import com.megvii.dzh.perfrom.concurrent.pool.ThreadPool;
 import com.megvii.dzh.spider.domain.po.Post;
 import com.megvii.dzh.spider.domain.po.User;
+import com.megvii.dzh.spider.domain.po.WordDivide;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -51,4 +52,9 @@ public class BootConfig {
    */
   @Autowired
   private ThreadPool<User> threadUserDivide;
+  /**
+   *
+   */
+  @Autowired
+  private ThreadPool<WordDivide> wordDivideSaveExcute;
 }
