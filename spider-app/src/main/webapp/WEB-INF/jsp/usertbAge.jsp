@@ -4,10 +4,16 @@
     <script src="${pageContext.request.contextPath}/js/jquery-3.2.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/echarts.common.min.js"></script>
     <!-- 引入主题 -->
-
+    <style>
+        .mainStyle {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+        }
+    </style>
 </head>
 <body>
-<div id="pie" style="width: 600px;height: 500px;"></div>
+<div id="pie" class="mainStyle"></div>
 <script>
   //初始化echarts
   var pieCharts = echarts.init(document.getElementById("pie"));
@@ -55,6 +61,27 @@
         type: 'pie',
         radius: '70%',
         center: ['50%', '60%'],
+        //标签
+        itemStyle: {
+          normal: {
+            label: {
+              show: true,
+              position: 'outer',
+              formatter: '{b}年 {d}%',
+              distance: 0.4,
+              textStyle: {
+                align: 'center',
+                baseline: 'middle',
+                fontFamily: '微软雅黑',
+                fontSize: 15,
+                fontWeight: 'bolder'
+              }
+            },
+            labelLine: {
+              show: true
+            }
+          }
+        },
         data: []
       }
     ]
@@ -69,6 +96,10 @@
     data: {limit: 16},
     dataType: "json",
     success: function (result) {
+      var typeArrays = []; //数组
+      for (var i = 0; i < result.length; i++) {
+        typeArrays.push(result[i].name);
+      }
       pieCharts.hideLoading();//隐藏加载动画
       pieCharts.setOption({
         title: {
@@ -83,7 +114,7 @@
         legend: {
           orient: 'vertical',
           x: 'left',
-          data: []
+          data: typeArrays
         },
         toolbox: {
           show: true,

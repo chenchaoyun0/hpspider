@@ -116,7 +116,7 @@ public class PostProcessor implements PageProcessor {
     return site;
   }
 
-  long logLoop = 0;
+  private long logLoop = 0;
 
   /**
    * 爬取处理
