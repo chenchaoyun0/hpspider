@@ -32,14 +32,7 @@ public class SpiderApplication extends SpringBootServletInitializer implements A
     public void onApplicationEvent(ContextRefreshedEvent event) {
         log.info("--->开机服务执行的操作....");
         try {
-            // 启动多少个线程
-            BootConfig bootConfig = SpringUtils.getBean(BootConfig.class);
-            int spiderThreads = bootConfig.getSpiderThreads();
-            // 开启爬虫
-            Spider.create(new PostProcessor()).addUrl("https://bbs.hupu.com/bxj-1")//
-                .addPipeline(SpringUtils.getBean(PostDownloadPipeline.class))//
-                .thread(spiderThreads)//
-                .runAsync();
+
         } catch (Exception e) {
             log.error("onApplicationEvent error", e);
         }
