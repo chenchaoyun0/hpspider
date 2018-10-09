@@ -55,10 +55,8 @@ public class SpiderController {
       if (spider.getThreadAlive() > 0) {
         return "爬虫程序已启动,请勿重新请求";
       }
-
       long count = postService.count(new Post()) + commentService.count(new Comment()) + userService
           .count(new User()) + wordDivideService.count(new WordDivide());
-
       if (count > 0) {
         return "库中有数据,请truncate table 后在执行爬虫";
       }
