@@ -2,9 +2,11 @@ package com.megvii.dzh.spider.domain.po;
 
 import java.util.Date;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import lombok.Data;
 
 @Data
+@Table
 public class Post {
     @Id
     private Long id;

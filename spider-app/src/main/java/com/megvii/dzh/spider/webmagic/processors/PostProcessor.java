@@ -43,11 +43,11 @@ public class PostProcessor implements PageProcessor {
    */
   private static final String POST_URL = "/\\d+\\.html";
   /**
-   * 匹配贴吧首页过滤
+   * 匹配虎扑步行街首页过滤
    */
   private static final String TB_HOME = "https://bbs\\.hupu\\.com/bxj-\\d+";
   /**
-   * 匹配贴吧首页帖子分页
+   * 匹配虎扑步行街首页帖子分页
    */
   private static final String TB_HOME_PAGE = "https://bbs.hupu.com/bxj-";
   /**
@@ -139,7 +139,7 @@ public class PostProcessor implements PageProcessor {
       }
 
       /**
-       * 若是贴吧首页则将所有帖子加入待爬取队列
+       * 若是虎扑步行街首页则将所有帖子加入待爬取队列
        */
       if (url.matches(TB_HOME)) {
         //将所有帖子页面加入队列
@@ -187,7 +187,7 @@ public class PostProcessor implements PageProcessor {
       }
 
       /**
-       * 贴吧分页，要爬的贴吧分好页，加入待爬取队列
+       * 虎扑步行街分页，要爬的虎扑步行街分好页，加入待爬取队列
        */
       if (url.matches(TB_HOME)) {
         /**

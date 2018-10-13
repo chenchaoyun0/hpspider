@@ -11,4 +11,9 @@ public interface IUserService extends IBaseService<User> {
   List<NameValue> getUserGender();
 
   List<NameValue> getUsertbAge(int limit);
+
+  List<NameValue> getAffiliationPie();
+
+  List<NameValue> getUserLevel();
+
 }

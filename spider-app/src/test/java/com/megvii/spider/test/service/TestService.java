@@ -3,9 +3,11 @@ package com.megvii.spider.test.service;
 import com.alibaba.fastjson.JSONObject;
 import com.megvii.dzh.spider.SpiderApplication;
 import com.megvii.dzh.spider.common.enums.WordDivideType;
+import com.megvii.dzh.spider.domain.po.User;
 import com.megvii.dzh.spider.domain.vo.NameValue;
 import com.megvii.dzh.spider.domain.vo.PostGroupByMonthVo;
 import com.megvii.dzh.spider.domain.vo.PostYears;
+import com.megvii.dzh.spider.mapper.UserMapper;
 import com.megvii.dzh.spider.service.ICommentService;
 import com.megvii.dzh.spider.service.IPostService;
 import com.megvii.dzh.spider.service.IUserService;
@@ -32,6 +34,8 @@ public class TestService {
   private ICommentService commentService;
   @Autowired
   private IUserService userService;
+  @Autowired
+  private UserMapper userMapper;
   @Autowired
   private IWordDivideService wordDivideService;
 
@@ -69,12 +73,30 @@ public class TestService {
     List<PostYears> postGroupBy = postService.getPostGroupBy("year");
     log.info("---> size {} data {}", postGroupBy.size(), JSONObject.toJSONString(postGroupBy));
   }
+  @Test
+  public void test5_1() {
+    List<PostYears> postGroupBy = postService.getPostGroupBy("hour");
+    log.info("---> size {} data {}", postGroupBy.size(), JSONObject.toJSONString(postGroupBy));
+  }
 
   @Test
   public void test6() {
     List<PostGroupByMonthVo> list = postService.getPostGroupByMonth();
     log.info("---> size {} data {}", list.size(), JSONObject.toJSONString(list));
   }
+
+  @Test
+  public void test7() {
+    List<NameValue> list = userService.getAffiliationPie();
+    log.info("---> size {} data {}", list.size(), JSONObject.toJSONString(list));
+  }
+
+  @Test
+  public void test7_1() {
+    List<NameValue> list = userService.getUserLevel();
+    log.info("---> size {} data {}", list.size(), JSONObject.toJSONString(list));
+  }
+
 
   @Test
   public void test8() {

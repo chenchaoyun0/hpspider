@@ -265,6 +265,28 @@ public class AnalysisController {
   }
 
   // ------------------------------***我是分割线***--------------------------------------------//
+  /**
+   * NBA主队分布
+   */
+  @RequestMapping(value = "/affiliationPie")
+  public String affiliationPie() {
+    return "affiliationPie";
+  }
+
+  public List<NameValue> getAffiliationPie(){
+    return userService.getAffiliationPie();
+  }
+
+  // ------------------------------***我是分割线***--------------------------------------------//
+  @RequestMapping(value = "/userLevel")
+  public String userLevel() {
+    return "userLevel";
+  }
+
+  public List<NameValue> getUserLevel(){
+    return userService.getUserLevel();
+  }
+
 
   // ------------------------------***我是分割线***--------------------------------------------//
 

@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>百度贴吧爬虫-数据导航页-陈超允</title>
+    <title>虎扑步行街爬虫-数据导航页-陈超允</title>
     <style type="text/css">
         .text_slice {
             font-size: 18px;
@@ -17,7 +17,7 @@
     </style>
 </head>
 <body>
-<h1 style="font-size: 25px;font-family: 楷体">Java 百度贴吧爬虫-数据分析导航列表</h1>
+<h1 style="font-size: 25px;font-family: 楷体">Java 虎扑步行街爬虫-数据分析导航列表</h1>
 <h2 style="font-size: 20px;font-family: 楷体">贴吧名:${tbName}，帖子总数:${countPost}，回复总数:${countComment}，用户总数:${countUser}</h2>
 <ul>
     <li class="text_slice">
@@ -37,6 +37,9 @@
     </li>
     <li class="text_slice">
         <a href="postHours">时发帖量</a>
+    </li>
+    <li class="text_slice">
+        <a href="affiliationPie">NBA主队分布</a>
     </li>
     <li class="text_slice">
         <a href="userLevel">用户等级分布</a>

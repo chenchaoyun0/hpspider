@@ -17,4 +17,7 @@ public interface UserMapper extends Mapper<User> {
 
   @Select("select ROUND(tb_age,0) as name,count(1) as value from `user` GROUP BY name ORDER BY value desc LIMIT #{arg0};")
   List<NameValue> getUsertbAge(int limit);
+
+  @Select("SELECT affiliation AS name,count(1) as value from `user` GROUP BY affiliation")
+  List<NameValue> getAffiliationPie();
 }

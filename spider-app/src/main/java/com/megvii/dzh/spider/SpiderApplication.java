@@ -19,7 +19,7 @@ import us.codecraft.webmagic.Spider;
 @SpringBootApplication
 @ServletComponentScan
 @ComponentScan({"com.megvii"})
-@MapperScan("com.megvii.dzh.spider.mapper")
+@MapperScan(basePackages = "com.megvii.dzh.spider.mapper")
 @Slf4j
 public class SpiderApplication extends SpringBootServletInitializer implements ApplicationListener<ContextRefreshedEvent> {
 

@@ -56,9 +56,10 @@ public class PostServiceImpl extends BaseServiceImpl<Post> implements IPostServi
   public List<NameValue> nameValuesByYear(String year, long limit) {
     try {
       // 查找年份的帖子
-      Date date = DateConvertUtils.parse(year, "yyyy");
       Example example = new Example(Post.class);
-      example.createCriteria().andGreaterThanOrEqualTo("time", date);
+      example.createCriteria()//
+          .andEqualTo("year",year)//
+          .andGreaterThanOrEqualTo("replyNum",500);
       List<Post> list = postMapper.selectByExample(example);
       log.info("---> size {} data {}", list.size());
       // 分词

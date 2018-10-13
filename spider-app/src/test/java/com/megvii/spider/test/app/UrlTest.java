@@ -6,8 +6,10 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 
 public class UrlTest {
@@ -58,5 +60,6 @@ public class UrlTest {
     list.add("bbb");
     HashSet<String> set = new HashSet<>(list);
     System.out.println(set);
+    HashMap<String,String> map=new HashMap<>();
   }
 }
