@@ -17,6 +17,11 @@ public class CommentServiceImpl extends BaseServiceImpl<Comment> implements ICom
     private CommentMapper commentMapper;
 
     @Override
+    public int getLastId() {
+        return commentMapper.getLastId();
+    }
+
+    @Override
     public List<NameValue> getUserDevicePie(int limit) {
         try {
             List<NameValue> list = commentMapper.getUserDevicePie(limit);

@@ -27,4 +27,5 @@ public interface IPostService extends IBaseService<Post> {
   List<NameValue> getPostTitlesyear(String year);
 
   List<NameValue> getPostUserTopBar(int limit);
+
 }

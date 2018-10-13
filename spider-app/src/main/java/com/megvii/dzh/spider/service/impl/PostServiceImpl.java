@@ -39,6 +39,11 @@ public class PostServiceImpl extends BaseServiceImpl<Post> implements IPostServi
   @Autowired
   private UserMapper userMapper;
 
+  @Override
+  public int getLastId(){
+    return postMapper.getLastId();
+  }
+
 
   @Override
   public List<NameValue> getPostUserTopBar(int limit) {

@@ -20,4 +20,7 @@ public interface IBaseService<T>{
     List<T> selectList(T t);
 
     long count(T t);
+
+    public int getLastId();
+
 }

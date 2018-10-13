@@ -4,10 +4,15 @@ import com.megvii.dzh.spider.service.IBaseService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import tk.mybatis.mapper.common.BaseMapper;
-public class BaseServiceImpl<T> implements IBaseService<T> {
+import tk.mybatis.mapper.entity.Example;
+
+public abstract class  BaseServiceImpl<T> implements IBaseService<T> {
 
     @Autowired
     private BaseMapper<T> baseMapper;
+
+    @Override
+    public abstract int getLastId();
 
     @Override
     public long count(T t) {

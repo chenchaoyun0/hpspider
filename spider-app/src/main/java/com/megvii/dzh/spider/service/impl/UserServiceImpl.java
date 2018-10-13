@@ -22,6 +22,11 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
   private UserMapper userMapper;
 
   @Override
+  public int getLastId(){
+    return userMapper.getLastId();
+  }
+
+  @Override
   public List<NameValue> getUserLevel() {
     try {
       List<NameValue> list=new ArrayList<>();

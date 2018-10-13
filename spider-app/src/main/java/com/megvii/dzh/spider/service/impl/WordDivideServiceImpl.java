@@ -19,6 +19,11 @@ public class WordDivideServiceImpl extends BaseServiceImpl<WordDivide> implement
   private WordDivideMapper wordDivideMapper;
 
   @Override
+  public int getLastId(){
+    return wordDivideMapper.getLastId();
+  }
+
+  @Override
   public List<NameValue> nameValues(WordDivideType type, long limit) {
     try {
       return wordDivideMapper.nameValues(type.getCode(), limit);

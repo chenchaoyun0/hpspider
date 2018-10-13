@@ -20,4 +20,7 @@ public interface UserMapper extends Mapper<User> {
 
   @Select("SELECT affiliation AS name,count(1) as value from `user` GROUP BY affiliation")
   List<NameValue> getAffiliationPie();
+
+  @Select("select id from user order by id desc limit 1")
+  int getLastId();
 }

@@ -43,15 +43,16 @@ public class AnalysisController {
   @Resource
   private IWordDivideService wordDivideService;
 
+
   @RequestMapping(value = "/")
   public String index(Model model) {
     log.info("===========index=============");
-    long countPost = postService.count(new Post());
-    long countComment = commentService.count(new Comment());
-    long countUser = userService.count(new User());
-    model.addAttribute("countPost",countPost);
-    model.addAttribute("countComment",countComment);
-    model.addAttribute("countUser",countUser);
+    long countPost = postService.getLastId();
+    long countComment = commentService.getLastId();
+    long countUser = userService.getLastId();
+    model.addAttribute("countPost", countPost);
+    model.addAttribute("countComment", countComment);
+    model.addAttribute("countUser", countUser);
     return "index";
   }
 
@@ -265,6 +266,7 @@ public class AnalysisController {
   }
 
   // ------------------------------***我是分割线***--------------------------------------------//
+
   /**
    * NBA主队分布
    */
@@ -273,7 +275,9 @@ public class AnalysisController {
     return "affiliationPie";
   }
 
-  public List<NameValue> getAffiliationPie(){
+  @RequestMapping(value = "/getAffiliationPie")
+  @ResponseBody
+  public List<NameValue> getAffiliationPie() {
     return userService.getAffiliationPie();
   }
 
@@ -283,10 +287,9 @@ public class AnalysisController {
     return "userLevel";
   }
 
-  public List<NameValue> getUserLevel(){
+  public List<NameValue> getUserLevel() {
     return userService.getUserLevel();
   }
-
 
   // ------------------------------***我是分割线***--------------------------------------------//
 

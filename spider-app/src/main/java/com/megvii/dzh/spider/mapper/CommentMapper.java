@@ -17,4 +17,8 @@ public interface CommentMapper extends Mapper<Comment> {
 
   @Select("select if(user_device='','未知',user_device) as name,count(1) as value from `comment` where user_device!='1' GROUP BY user_device ORDER BY value desc LIMIT #{arg0}")
   List<NameValue> getUserDevicePie(int limit);
+
+  @Select("select id from comment order by id desc limit 1")
+  int getLastId();
+
 }

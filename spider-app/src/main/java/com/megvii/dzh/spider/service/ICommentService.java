@@ -11,4 +11,5 @@ public interface ICommentService extends IBaseService<Comment> {
   List<NameValue> getActiveUserBar(int limit);
 
   List<NameValue> getUserDevicePie(int limit);
+
 }
