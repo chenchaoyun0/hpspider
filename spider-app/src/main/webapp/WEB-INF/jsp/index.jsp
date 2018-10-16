@@ -39,6 +39,9 @@
         <a href="postHours">时发帖量</a>
     </li>
     <li class="text_slice">
+        <a href="commentHours">时回复量</a>
+    </li>
+    <li class="text_slice">
         <a href="affiliationPie">NBA主队分布</a>
     </li>
     <li class="text_slice">

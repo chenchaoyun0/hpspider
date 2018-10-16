@@ -19,15 +19,17 @@
 
 <body>
 
+ <!-- 显示Echarts图表 -->
  <div style="height: 410px; min-height: 100px; margin: 0 auto;"
   id="main"></div>
  <script type="text/javascript">
+		// 基于准备好的dom，初始化echarts实例
 		var myChart = echarts.init(document.getElementById('main'));
 
 		// 指定图表的配置项和数据
 		var option = {
 			title : { //图表标题
-				text : '社区声望最多的10大用户'
+				text : '每天时间点回复量曲线图'
 			},
 			tooltip : {
 				trigger : 'axis', //坐标轴触发提示框，多用于柱状、折线图中
@@ -37,28 +39,33 @@
 				start : 0, //默认数据初始缩放范围为10%到90%
 				end : 100
 			}, {
-				type : 'inside', //支持单独的滑动人缩放
+				type : 'inside', //支持单独的滑动条缩放
 				start : 0, //默认数据初始缩放范围为10%到90%
 				end : 100
 			} ],
 			legend : { //图表上方的类别显示
 				show : true,
-				data : [ '社区声望值' ]
+				data : [ '时' ]
 			},
-			color : [ '#FFDC35'//2014曲线颜色
+			color : [ '#FFA500' //温度曲线颜色
 			],
-			toolbox : { //工具栏显示
+			toolbox : { //工具栏显示             
 				show : true,
 				feature : {
 					saveAsImage : {}
 				//显示“另存为图片”工具
 				}
 			},
-			xAxis : { //X轴
+			xAxis : { //X轴           
 				type : 'category',
-				name : '用户名',
+				name : '时',
 				axisLabel : {
-					formatter : '{value}' //控制输出格式
+					formatter : '{value} ' //控制输出格式
+				},
+				axisLine : {
+					lineStyle : {
+						color : 'black'
+					}
 				},
 				data : []
 			//先设置数据值为空，后面用Ajax获取动态数据填入
@@ -67,62 +74,71 @@
 			{
 				//第一个（左边）Y轴，yAxisIndex为0
 				type : 'value',
-				name : '社区声望值',
+				name : '回复量',
 				axisLabel : {
-					formatter : '{value} 次' //控制输出格式
+					formatter : '{value} 条' //控制输出格式
+				},
+				axisLine : {
+					lineStyle : {
+						color : 'black'
+					}
 				}
 			} ],
-			series : [ {
-				name : '2014年',
-				type : 'bar',
-				barWidth : 30,//柱图宽度
+			series : [ //系列（内容）列表                      
+			{
+				name : '回复量',
+				type : 'line', //折线图表示（生成温度曲线）
+				symbol : 'emptycircle', //设置折线图中表示每个坐标点的符号；emptycircle：空心圆；emptyrect：空心矩形；circle：实心圆；emptydiamond：菱形                        
 				data : []
+			//数据值通过Ajax动态获取
 			} ]
 		};
 
-		myChart.showLoading();
+		myChart.showLoading(); //数据加载完之前先显示一段简单的loading动画
 
-		var provinces = []; //类别数组（实际用来盛放X轴坐标值）
-		var males = [];
+		var tems = []; //回复量数组（存放服务器返回的所有温度值）
+		var dates = []; //时间数组
 
-		$.ajax({
-			type : "post",
-			async : true,
-			url : "${pageContext.request.contextPath}/getUserSheqSw",
+		$.ajax({ //使用JQuery内置的Ajax方法
+			type : "post", //post请求方式
+			async : true, //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+			url : "${pageContext.request.contextPath}/getCommentGroupBy", //请求发送到ShowInfoIndexServlet处
 			data : {
-				limit : 30,
-                orderBy:"DESC"
-			},
-			dataType : "json",
+				groupBy : "hour"
+			}, //请求内包含一个key为name，value为A0001的参数
+			dataType : "json", //返回数据形式为json
 			success : function(result) {
+				//请求成功时执行该函数内容，result即为服务器返回的json对象
 				if (result != null && result.length > 0) {
 					for (var i = 0; i < result.length; i++) {
-						provinces.push(result[i].name); //挨个取出类别并填入类别数组
-					}
-					for (var i = 0; i < result.length; i++) {
-						males.push(result[i].value); //挨个取出销量并填入销量数组
+						tems.push(result[i].value); //挨个取出温度、湿度、压强等值并填入前面声明的温度、湿度、压强等数组
+						dates.push(result[i].name + ' 点');
 					}
 					myChart.hideLoading(); //隐藏加载动画
 
 					myChart.setOption({ //载入数据
 						xAxis : {
-							data : provinces
+							data : dates
+						//填入X轴数据
 						},
 						series : [ //填入系列（内容）数据
 						{
 							// 根据名字对应到相应的系列
-							name : '社区声望值',
-							data : males
+							name : '回复量',
+							smooth : 0.3,
+							data : tems
 						} ]
 					});
 
 				} else {
+					//返回的数据为空时显示提示信息
 					alert("图表请求数据为空，可能服务器暂未录入近五天的观测数据，您可以稍后再试！");
 					myChart.hideLoading();
 				}
 
 			},
 			error : function(errorMsg) {
+				//请求失败时执行该函数
 				alert("图表请求数据失败，可能是服务器开小差了");
 				myChart.hideLoading();
 			}

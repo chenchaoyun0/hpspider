@@ -1,6 +1,7 @@
 package com.megvii.dzh.spider.mapper;
 
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import com.megvii.dzh.spider.domain.po.Comment;
@@ -21,7 +22,10 @@ public interface CommentMapper extends Mapper<Comment> {
   @Select("select id from comment order by id desc limit 1")
   int getLastId();
 
-  @Select("SELECT * from `comment` WHERE `year`=#{year} ORDER BY light_count DESC LIMIT 30;")
+  @Select("SELECT content as name,light_count as value from `comment` WHERE `year`=#{year} ORDER BY light_count DESC LIMIT 30;")
   List<NameValue> getReplyLightYear(int year);
+
+  @Select("SELECT ${groupBy} as name,count(1) as value from comment GROUP BY ${groupBy} ORDER BY ${groupBy}")
+  List<NameValue> getCommentGroupBy(@Param("groupBy") String groupBy);
 
 }

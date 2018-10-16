@@ -1,5 +1,6 @@
 package com.megvii.dzh.spider.service.impl;
 
+import com.megvii.dzh.spider.domain.vo.PostYears;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,19 @@ public class CommentServiceImpl extends BaseServiceImpl<Comment> implements ICom
 
   @Autowired
   private CommentMapper commentMapper;
+
+
+  @Override
+  public List<NameValue> getCommentGroupBy(String groupBy) {
+    try {
+      List<NameValue> list = commentMapper.getCommentGroupBy(groupBy);
+      log.info("---> size {} data {}", list.size());
+      return list;
+    } catch (Exception e) {
+      log.error("getReplyLightYear error {}", e);
+    }
+    return null;
+  }
 
   @Override
   public List<NameValue> getReplyLightYear(int year) {

@@ -300,6 +300,10 @@ public class AnalysisController {
   public String postHours() {
     return "postHours";
   }
+  @RequestMapping(value = "/commentHours")
+  public String commentHours() {
+    return "commentHours";
+  }
 
   @RequestMapping(value = "/getPostGroupBy")
   @ResponseBody
@@ -307,11 +311,20 @@ public class AnalysisController {
     return postService.getPostGroupBy(groupBy);
   }
 
+  @RequestMapping(value = "/getCommentGroupBy")
+  @ResponseBody
+  public List<NameValue> getCommentGroupBy(String groupBy) {
+    return commentService.getCommentGroupBy(groupBy);
+  }
+
   @RequestMapping(value = "/getPostGroupByMonth")
   @ResponseBody
   public List<PostGroupByMonthVo> getPostGroupByMonth() {
     return postService.getPostGroupByMonth();
   }
+
+  // ------------------------------***我是分割线***--------------------------------------------//
+
 
   // ------------------------------***我是分割线***--------------------------------------------//
 
