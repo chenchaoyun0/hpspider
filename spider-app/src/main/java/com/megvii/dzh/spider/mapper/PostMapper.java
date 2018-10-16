@@ -24,10 +24,12 @@ public interface PostMapper extends Mapper<Post> {
   @Select("SELECT title as name , reply_num as value from post where `year`=#{year} ORDER BY reply_num desc LIMIT 20")
   List<NameValue> getPostTitlesyear(String year);
 
-  @Select("select user_name as name,count(1) as value from post WHERE `year` BETWEEN 2012 AND 2018 GROUP BY user_name ORDER BY value desc LIMIT #{0};")
+  @Select("select user_name as name,count(1) as value from post GROUP BY user_name ORDER BY value desc LIMIT #{0};")
   List<NameValue> getPostUserTopBar(int limit);
 
   @Select("select id from post order by id desc limit 1")
   int getLastId();
 
+  @Select("SELECT title as name , reply_num as value from post ORDER BY reply_num desc LIMIT 20")
+  List<NameValue> getPostTitlesyearAll();
 }

@@ -3,10 +3,10 @@ package com.megvii.spider.test.service;
 import com.alibaba.fastjson.JSONObject;
 import com.megvii.dzh.spider.SpiderApplication;
 import com.megvii.dzh.spider.common.enums.WordDivideType;
-import com.megvii.dzh.spider.domain.po.User;
 import com.megvii.dzh.spider.domain.vo.NameValue;
 import com.megvii.dzh.spider.domain.vo.PostGroupByMonthVo;
 import com.megvii.dzh.spider.domain.vo.PostYears;
+import com.megvii.dzh.spider.domain.vo.UserProvinceBarVo;
 import com.megvii.dzh.spider.mapper.UserMapper;
 import com.megvii.dzh.spider.service.ICommentService;
 import com.megvii.dzh.spider.service.IPostService;
@@ -73,6 +73,7 @@ public class TestService {
     List<PostYears> postGroupBy = postService.getPostGroupBy("year");
     log.info("---> size {} data {}", postGroupBy.size(), JSONObject.toJSONString(postGroupBy));
   }
+
   @Test
   public void test5_1() {
     List<PostYears> postGroupBy = postService.getPostGroupBy("hour");
@@ -106,6 +107,13 @@ public class TestService {
   }
 
   @Test
+  public void test8_1() {
+    List<UserProvinceBarVo> list = userService.getUserProvinceBar(30);
+    log.info("---> size {} data {}", list.size(), JSONObject.toJSONString(list));
+
+  }
+
+  @Test
   public void test9() {
     List<NameValue> list = commentService.getActiveUser(2012, 30);
     log.info("---> size {} data {}", list.size(), JSONObject.toJSONString(list));
@@ -113,7 +121,13 @@ public class TestService {
 
   @Test
   public void test10() {
-    List<NameValue> list = userService.getUserFansBar(10);
+    List<NameValue> list = userService.getUserFansBar(10, 1);
+    log.info("---> size {} data {}", list.size(), JSONObject.toJSONString(list));
+  }
+
+  @Test
+  public void test10_1() {
+    List<NameValue> list = userService.getUserViewTotal(30, 0);
     log.info("---> size {} data {}", list.size(), JSONObject.toJSONString(list));
   }
 

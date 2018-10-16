@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
-<script src='https://cdn.bootcss.com/echarts/3.7.0/echarts.simple.js'></script>
+<script src='/js/echarts.simple.js'></script>
 <script src='/js/echarts-wordcloud.js'></script>
 </head>
 <body>
@@ -20,7 +20,7 @@ html, body, #main {
 
 		var option = {
 			title : { //图表标题
-				text : '年度20大热帖'
+				text : '历史来20大热帖'
 			},
 			tooltip : {},
 			backgroundColor : '#F7F7F7',
@@ -74,10 +74,8 @@ html, body, #main {
 		$.ajax({
 			type : "post",
 			async : true,
-			url : "getPostTitlesyear",
-			data : {
-				year : "2015"
-			},
+			url : "getPostTitlesyearAll",
+			data : [],
 			dataType : "json",
 			success : function(result) {
 				chart.hideLoading(); //隐藏加载动画

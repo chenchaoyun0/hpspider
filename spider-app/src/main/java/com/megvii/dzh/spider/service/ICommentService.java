@@ -12,4 +12,6 @@ public interface ICommentService extends IBaseService<Comment> {
 
   List<NameValue> getUserDevicePie(int limit);
 
+  List<NameValue> getReplyLightYear(int year);
+
 }

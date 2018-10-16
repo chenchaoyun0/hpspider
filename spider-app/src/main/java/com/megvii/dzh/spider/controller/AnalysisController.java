@@ -10,6 +10,7 @@ import com.megvii.dzh.spider.domain.vo.NameValue;
 import com.megvii.dzh.spider.domain.vo.PostGroupByMonthVo;
 import com.megvii.dzh.spider.domain.vo.PostYears;
 import com.megvii.dzh.spider.domain.vo.Record;
+import com.megvii.dzh.spider.domain.vo.UserProvinceBarVo;
 import com.megvii.dzh.spider.service.ICommentService;
 import com.megvii.dzh.spider.service.IPostService;
 import com.megvii.dzh.spider.service.IUserService;
@@ -69,8 +70,9 @@ public class AnalysisController {
   @RequestMapping(value = "/postTitleWord")
   @ResponseBody
   public List<NameValue> postTitleWord(int year, int limit) {
-    List<NameValue> nameValuesByYear = postService.nameValuesByYear(year + "", limit);
-    return nameValuesByYear;
+    List<NameValue> list = wordDivideService.nameValues(WordDivideType.POST_TITLE, limit);
+    //List<NameValue> nameValuesByYear = postService.nameValuesByYear(year + "", limit);
+    return list;
   }
 
   // ------------------------------***我是分割线***--------------------------------------------//
@@ -137,6 +139,21 @@ public class AnalysisController {
   }
 
   // ------------------------------***我是分割线***--------------------------------------------//
+
+
+  @RequestMapping(value = "/userProvinceBar")
+  public String userProvinceBar() {
+    return "userProvinceBars";
+  }
+
+  @RequestMapping(value = "/getUserProvinceBar")
+  @ResponseBody
+  public List<UserProvinceBarVo> getUserProvinceBar(int limit) {
+    List<UserProvinceBarVo> userProvinceBarVo = userService.getUserProvinceBar(limit);
+    return userProvinceBarVo;
+  }
+
+  // ------------------------------***我是分割线***--------------------------------------------//
   @RequestMapping(value = "/userFansBar")
   public String userFansBar() {
     return "userFansBar";
@@ -147,9 +164,40 @@ public class AnalysisController {
    */
   @RequestMapping(value = "/getUserFansBar")
   @ResponseBody
-  public List<NameValue> getUserFansBar(int limit) {
-    return userService.getUserFansBar(limit);
+  public List<NameValue> getUserFansBar(int limit, int gender) {
+    return userService.getUserFansBar(limit, gender);
   }
+
+  // ------------------------------***我是分割线***--------------------------------------------//
+  @RequestMapping(value = "/userViewTotal")
+  public String userViewTotal() {
+    return "userViewTotal";
+  }
+
+  /**
+   * 访问量
+   */
+  @RequestMapping(value = "/getUserViewTotal")
+  @ResponseBody
+  public List<NameValue> getUserViewTotal(int limit,int gender) {
+    return userService.getUserViewTotal(limit,gender);
+  }
+
+  // ------------------------------***我是分割线***--------------------------------------------//
+  @RequestMapping(value = "/userSheqSw")
+  public String userSheqSw() {
+    return "userSheqSw";
+  }
+
+  /**
+   * 社区声望
+   */
+  @RequestMapping(value = "/getUserSheqSw")
+  @ResponseBody
+  public List<NameValue> getUserSheqSw(int limit, String orderBy) {
+    return userService.getUserSheqSw(limit, orderBy);
+  }
+
 
   // ------------------------------***我是分割线***--------------------------------------------//
   @RequestMapping(value = "/postUserTopBar")
@@ -287,6 +335,8 @@ public class AnalysisController {
     return "userLevel";
   }
 
+  @RequestMapping(value = "/getUserLevel")
+  @ResponseBody
   public List<NameValue> getUserLevel() {
     return userService.getUserLevel();
   }
@@ -300,6 +350,18 @@ public class AnalysisController {
   @ResponseBody
   public List<NameValue> getPostTitlesyear(String year) {
     List<NameValue> result = postService.getPostTitlesyear(year);
+    return result;
+  }
+
+  @RequestMapping(value = "/postTitlesyearAll")
+  public String postTitlesyearAll() {
+    return "postTitlesyearAll";
+  }
+
+  @RequestMapping(value = "/getPostTitlesyearAll")
+  @ResponseBody
+  public List<NameValue> getPostTitlesyearAll() {
+    List<NameValue> result = postService.getPostTitlesyearAll();
     return result;
   }
 
@@ -324,6 +386,19 @@ public class AnalysisController {
   }
 
   // ------------------------------***我是分割线***--------------------------------------------//
+  @RequestMapping(value = "/replyLightYear2018")
+  public String replyLightYear2018() {
+    return "replyLightYear2018";
+  }
+
+  @RequestMapping(value = "/getReplyLightYear")
+  @ResponseBody
+  public List<NameValue> getReplyLightYear(int year) {
+    List<NameValue> result = commentService.getReplyLightYear(year);
+    return result;
+  }
+  // ------------------------------***我是分割线***--------------------------------------------//
+
 
   @RequestMapping(value = "/userNameWordCloud")
   public String userNameWordCloud() {
@@ -391,6 +466,23 @@ public class AnalysisController {
   @ResponseBody
   public List<NameValue> getUserDevicePie(int limit) {
     return commentService.getUserDevicePie(limit);
+  }
+
+  // ------------------------------***我是分割线***--------------------------------------------//
+
+  /**
+   * 用户设备分布
+   */
+  @RequestMapping(value = "/userJoinYears")
+  public String userJoinYears() {
+    return "userJoinYears";
+  }
+
+
+  @RequestMapping(value = "/getUserJoinYears")
+  @ResponseBody
+  public List<NameValue> getUserJoinYears() {
+    return userService.getUserJoinYears();
   }
 
 }

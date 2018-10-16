@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
-    <script src='https://cdn.bootcss.com/echarts/3.7.0/echarts.simple.js'></script>
+    <script src='/js/echarts.simple.js'></script>
     <script src='/js/echarts-wordcloud.js'></script>
 </head>
 <body>

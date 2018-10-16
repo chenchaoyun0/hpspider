@@ -2,9 +2,8 @@
 <html>
 <head>
 <meta charset="utf-8">
-<!-- 引入jquery.js -->
 <script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
-<script src='https://cdn.bootcss.com/echarts/3.7.0/echarts.simple.js'></script>
+<script src='/js/echarts.simple.js'></script>
 <script src='/js/echarts-wordcloud.js'></script>
 </head>
 <body>
@@ -20,20 +19,23 @@ html, body, #main {
 		var chart = echarts.init(document.getElementById('main'));
 
 		var option = {
+			title : { //图表标题
+				text : '2018年度点亮前十的回复'
+			},
 			tooltip : {},
 			backgroundColor : '#F7F7F7',
 			series : [ {
 				type : 'wordCloud',
 				gridSize : 2,
-				sizeRange : [ 30, 150 ],
-				rotationRange : [ -45, 90 ],
+				sizeRange : [ 12, 48 ],
+				rotationRange : [ 0, 0 ],
 				shape : 'circle',
 				width : 1000,
 				height : 1000,
 				drawOutOfBound : true,
 				autoSize : {
 					enable : true,
-					minSize : 10
+					minSize : 6
 				},
 				textStyle : {
 					normal : {
@@ -67,28 +69,23 @@ html, body, #main {
 
 		chart.setOption(option);
 
-		chart.showLoading(); //数据加载完之前先显示一段简单的loading动画
+		chart.showLoading();
 
 		$.ajax({
 			type : "post",
-			async : true, //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
-			url : "getTbNameWordCloud", //请求发送到TestServlet处
+			async : true,
+			url : "getReplyLightYear",
 			data : {
-				limit : 100
+				year : "2018"
 			},
-			dataType : "json", //返回数据形式为json
+			dataType : "json",
 			success : function(result) {
-				//请求成功时执行该函数内容，result即为服务器返回的json对象
-				//if (result) {
 				chart.hideLoading(); //隐藏加载动画
 				chart.setOption({ //加载数据图表
 					series : [ {// 根据名字对应到相应的系列
 						data : result
 					} ]
 				});
-
-				//}
-
 			},
 			error : function(errorMsg) {
 				//请求失败时执行该函数
@@ -101,3 +98,4 @@ html, body, #main {
 	</script>
 </body>
 </html>
+

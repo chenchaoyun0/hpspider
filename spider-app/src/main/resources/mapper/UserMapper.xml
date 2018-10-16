@@ -15,4 +15,25 @@
     id, user_name, gender, tb_age, post_count, follow_count, fans_count, user_head_url, 
     user_home_url
   </sql>
+
+  <select id="getUserFansBar" resultType="com.megvii.dzh.spider.domain.vo.NameValue">
+    SELECT a.user_name as name,a.fans_count as value from (SELECT id,user_name,fans_count  FROM `user`
+    <where>
+      <if test="gender!=-1">
+        gender=#{gender}
+      </if>
+    </where>
+    ORDER BY fans_count DESC LIMIT #{limit}) a GROUP BY a.user_name ORDER BY a.fans_count DESC
+  </select>
+  
+  <select id="getUserViewTotal" resultType="com.megvii.dzh.spider.domain.vo.NameValue">
+    SELECT a.user_name as name,a.view_total as value from (SELECT id,user_name,view_total  FROM `user`
+    <where>
+      <if test="gender!=-1">
+        gender=#{gender}
+      </if>
+    </where>
+    ORDER BY view_total DESC LIMIT #{limit}) a GROUP BY a.user_name ORDER BY a.view_total DESC
+  </select>
+  
 </mapper>

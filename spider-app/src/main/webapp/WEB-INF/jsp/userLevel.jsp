@@ -75,7 +75,7 @@
           label: {
             show: true,
             position: 'outer',
-            formatter: '{b} 级 {d}%',
+            formatter: '{b} {d}%',
             distance: 0.4,
             textStyle: {
               align: 'center',

@@ -218,4 +218,16 @@ public class PostServiceImpl extends BaseServiceImpl<Post> implements IPostServi
     }
     return null;
   }
+
+  @Override
+  public List<NameValue> getPostTitlesyearAll() {
+    try {
+      List<NameValue> list = postMapper.getPostTitlesyearAll();
+      log.info("---> size {} data {}", list.size());
+      return list;
+    } catch (Exception e) {
+      log.error("getPostYears error {}", e);
+    }
+    return null;
+  }
 }
