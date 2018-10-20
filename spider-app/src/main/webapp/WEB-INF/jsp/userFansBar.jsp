@@ -91,7 +91,7 @@
     url: "${pageContext.request.contextPath}/getUserFansBar",
     data: {
       limit: 30,
-      gender: -1 //-1不分性别
+      gender: 0 //-1不分性别
     },
     dataType: "json",
     success: function (result) {
