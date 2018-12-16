@@ -15,14 +15,14 @@ java 爬虫，采用webmagic框架。目的爬取虎扑步行街的数据，并�
 # 技术栈 
 
 - springboot 1.5.7
-- springMVC+Rest+EChart...
-- tx.mybatis 3.4.6
-- hikari 连接池
+- springMVC+Rest...
+- EChart 统计图
+- tx.mybatis 3.4.6 + hikari 连接池
 - webmagic 0.7.3（修改版，修复https问题与log优化 下载地址：<https://download.csdn.net/download/sinat_22767969/10703880>）
 - mysql 5.7.17 （支持utf8mb4字符编码）
 
 ### 表设计
-
+表sql参见 db/hpspider.sql
 - [ ] 用户表 user
 
 - [ ] 帖子表 post
