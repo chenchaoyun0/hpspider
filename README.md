@@ -45,6 +45,10 @@ java 爬虫，采用webmagic框架。目的爬取虎扑步行街的数据，并�
 ![](https://img-blog.csdn.net/20181016211501148?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3NpbmF0XzIyNzY3OTY5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
 ### 19. 步行街男女比例分布!!（男女Jrs比例，到底是？）
 ![](https://img-blog.csdn.net/20181016210643709?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3NpbmF0XzIyNzY3OTY5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+### 13. Jrs所在地分布
+![](https://img-blog.csdn.net/20181016210255330?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3NpbmF0XzIyNzY3OTY5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+### 13.1. 女Jrs所在地分布
+![](https://img-blog.csdn.net/20181016210507796?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3NpbmF0XzIyNzY3OTY5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
 ### 20. Jrs设备分布
 ![](https://img-blog.csdn.net/20181016211212526?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3NpbmF0XzIyNzY3OTY5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
 ### 7. NBA主队分布 **
@@ -66,10 +70,6 @@ java 爬虫，采用webmagic框架。目的爬取虎扑步行街的数据，并�
 ![](https://img-blog.csdn.net/20181016210902135?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3NpbmF0XzIyNzY3OTY5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
 ### 11. 年度点亮前十的回复
 ![](https://img-blog.csdn.net/20181016210957829?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3NpbmF0XzIyNzY3OTY5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
-### 13. Jrs所在地分布
-![](https://img-blog.csdn.net/20181016210255330?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3NpbmF0XzIyNzY3OTY5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
-### 13.1. 女Jrs所在地分布
-![](https://img-blog.csdn.net/20181016210507796?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3NpbmF0XzIyNzY3OTY5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
 ### 12. 十大活跃Jrs，按年分组（所谓的达人/大神）
 ![](https://img-blog.csdn.net/20181016211339321?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3NpbmF0XzIyNzY3OTY5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
 ### 14. 粉丝最多的10大Jrs（人气最高的明星）
