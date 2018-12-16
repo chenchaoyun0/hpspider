@@ -10,7 +10,7 @@
 
     <!-- 继承父类版本 -->
     <parent>
-        <groupId>com.megvii.dzh</groupId>
+        <groupId>com.megvii.dzh.hp</groupId>
         <artifactId>hpspider</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
