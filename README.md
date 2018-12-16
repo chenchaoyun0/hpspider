@@ -37,15 +37,15 @@ java 爬虫，采用webmagic框架。目的爬取虎扑步行街的数据，并�
 
 ## **计划统计**
 
-### 1. 帖子标题的热点词汇（分析Jrs使用最频繁的词汇）
+### 1. 步行街帖子标题的热点词汇（分析Jrs使用最频繁的词汇）
 ![](https://img-blog.csdn.net/20181016203813362?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3NpbmF0XzIyNzY3OTY5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
-### 23. 帖子回复的词云（看所有帖子下大家都在说些什么）
+### 23. JRS回复的词云（看所有帖子下大家都在说些什么）
 ![](https://img-blog.csdn.net/20181016211400843?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3NpbmF0XzIyNzY3OTY5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
-### 24. 虎扑昵称名词云（大家最喜欢用什么词起名）
+### 24. JRS昵称名词云（大家最喜欢用什么词起名）
 ![](https://img-blog.csdn.net/20181016211501148?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3NpbmF0XzIyNzY3OTY5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
-### 19. 男女比例分布（吧里的男女Jrs比例，到底是？）
+### 19. 步行街男女比例分布!!（男女Jrs比例，到底是？）
 ![](https://img-blog.csdn.net/20181016210643709?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3NpbmF0XzIyNzY3OTY5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
-### 20. 用户设备分布
+### 20. Jrs设备分布
 ![](https://img-blog.csdn.net/20181016211212526?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3NpbmF0XzIyNzY3OTY5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
 ### 7. NBA主队分布 **
 ![](https://img-blog.csdn.net/2018101620564819?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3NpbmF0XzIyNzY3OTY5/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
